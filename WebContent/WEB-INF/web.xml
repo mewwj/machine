@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <servlet>
+    <servlet-name>ServletToback</servlet-name>
+    <servlet-class>servlet.ServletToback</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletToback</servlet-name>
+    <url-pattern>/ServletToback</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>DoInsertServlet</servlet-name>
+    <servlet-class>servlet.DoInsertServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DoInsertServlet</servlet-name>
+    <url-pattern>/DoInsertServlet</url-pattern>
+  </servlet-mapping>
+  <!--  去往list页面。-->
+  <servlet>
+    <description></description>
+    <display-name>ToBackListServlet</display-name>
+    <servlet-name>ToBackListServlet</servlet-name>
+    <servlet-class>servlet.ToBackListServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ToBackListServlet</servlet-name>
+    <url-pattern>/ToBackListServlet</url-pattern>
+  </servlet-mapping>
+</web-app>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+       Copyright 2009-2016 the original author or authors.
+
+       Licensed under the Apache License, Version 2.0 (the "License");
+       you may not use this file except in compliance with the License.
+       You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+       Unless required by applicable law or agreed to in writing, software
+       distributed under the License is distributed on an "AS IS" BASIS,
+       WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+       See the License for the specific language governing permissions and
+       limitations under the License.
+
+-->
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="dao.ITest">
+
+  <resultMap type="pojo.TestItems" id="itemsResult">
+		    <result column="plinename" jdbcType="VARCHAR" property="plinename"/>
+		    <result column="mname" jdbcType="VARCHAR" property="mname"/>
+		    <result column="ordernumber" jdbcType="VARCHAR" property="ordernumber"/>
+		    <result column="mstandard" jdbcType="VARCHAR" property="mstandard"/>
+		    <result column="testm" jdbcType="VARCHAR" property="testm"/>
+		    <result column="pnumber" jdbcType="INTEGER" property="pnumber"/>
+		    <result column="time" jdbcType="DATE" property="pnumber"/>
+		    <result column="good" jdbcType="INTEGER" property="good"/>
+		    <result column="ng" jdbcType="INTEGER" property="ng"/>
+		    <result column="goodrate" jdbcType="DOUBLE" property="goodrate"/>
+		    <result column="ngrate" jdbcType="DOUBLE" property="ngrate"/>
+		    <result column="spc" jdbcType="INTEGER" property="spc"/>
+		    <result column="thd" jdbcType="INTEGER" property="thd"/>
+		    <result column="oth" jdbcType="INTEGER" property="oth"/>
+		     </resultMap> 
+    
+    <insert id="insert"  parameterType="java.util.List">
+    insert into PL(pline,mname,ordernumber,mstandard,testm,pnumber,time,good,ng,goodrate,ngrate,spc,thd,oth) values
+    <foreach collection="list" item="item" index="index"  open="(" close=")" separator=",">
+          #{item.plinename},#{item.mname},#{item.ordernumber},#{item.mstandard},#{item.testm},#{item.pnumber},#{item.time},#{item.good},#{item.ng},#{item.goodrate}
+          ,#{item.ngrate},#{item.spc},#{item.thd},#{item.oth}
+    </foreach>
+    
+  </insert> 
+ 
+  
+  
+  </mapper>  
