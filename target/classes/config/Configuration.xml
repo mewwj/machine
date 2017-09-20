@@ -48,6 +48,7 @@
 
   <mappers>
     <mapper resource="sqlxml/sql.xml"/>
+    <mapper resource="sqlxml/sql2.xml"/>
   </mappers>
       
 </configuration>

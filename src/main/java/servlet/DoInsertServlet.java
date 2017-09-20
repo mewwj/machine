@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import pojo.TestItems;
 import service.InsertService;
+import service.ListService;
+import service.SelectService;
 
 /**
  * Servlet implementation class DoInsertServlet
@@ -26,25 +28,13 @@ public class DoInsertServlet extends HttpServlet {
         super();
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String plinename=request.getParameter("plinename");
+		String pline=request.getParameter("insertpline");
 		String mname=request.getParameter("mname");
 		String ordernumber=request.getParameter("ordernumber");
-		String mstandard=request.getParameter("mtandard");
-		String testm=request.getParameter("testm");
+		String testm=request.getParameter("inserttestm");
 		String pnumber1=request.getParameter("pnumber");
 		int pnumber=Integer.valueOf(pnumber1);
-		String time1=request.getParameter("time");
-		System.out.println(time1);
-		 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Date time = null;
-		try {
-			time = sdf.parse(time1);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		   System.out.println(time);
-		
-		 
+		String time1=request.getParameter("inserttime");
 		String good1=request.getParameter("good");
 		int good=Integer.valueOf(good1);
 		String ng1=request.getParameter("ng");
@@ -64,13 +54,12 @@ public class DoInsertServlet extends HttpServlet {
 		int thd=Integer.valueOf(thd1);
 		String oth1=request.getParameter("oth");
 		int oth=Integer.valueOf(oth1);
-		System.out.println(plinename);
+		System.out.println(pline);
 		List<TestItems> items=new ArrayList();
 		    TestItems testitems=new TestItems();
-		    testitems.setPlinename(plinename);
+		    testitems.setPline(pline);
 		    testitems.setMname(mname);
 		    testitems.setOrdernumber(ordernumber);
-		    testitems.setMstandard(mstandard);
 		    testitems.setTestm(testm);
 		    testitems.setPnumber(pnumber);
 		    testitems.setTime(time1);
@@ -84,6 +73,8 @@ public class DoInsertServlet extends HttpServlet {
 		    items.add(testitems);
 		    InsertService insrtService=new InsertService();
 		    insrtService.insert(items);
+		   
+		    request.getRequestDispatcher("/DoListServlet").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

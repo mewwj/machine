@@ -1,9 +1,10 @@
 package pojo;
 
-import java.util.Date;
+
 
 public class TestItems {
-	private String plinename;
+	private int id;
+	private String pline;
 	private String mname;
 	private String ordernumber;
 	private String mstandard;
@@ -17,10 +18,11 @@ public class TestItems {
     private int spc;
     private int thd;
     private int oth;
-	public TestItems(String plinename,String mname,String ordernumber,String mstandard, String testm, int pnumber, String time, int good, int ng, Double goodrate,
+	public TestItems(int id,String pline,String mname,String ordernumber,String mstandard, String testm, int pnumber, String time, int good, int ng, Double goodrate,
 			Double ngrate, int spc, int thd, int oth) {
 		super();
-		this.plinename=plinename;
+		this.id=id;
+		this.pline=pline;
 		this.mname=mname;
 		this.ordernumber=ordernumber;
 		this.mstandard=mstandard;
@@ -35,11 +37,17 @@ public class TestItems {
 		this.thd = thd;
 		this.oth = oth;
 	}
-	public String getPlinename() {
-		return plinename;
+	public int getId() {
+		return id;
 	}
-	public void setPlinename(String plinename) {
-		this.plinename = plinename;
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getPline() {
+		return pline;
+	}
+	public void setPline(String pline) {
+		this.pline = pline;
 	}
 	public String getMname() {
 		return mname;
@@ -78,8 +86,8 @@ public class TestItems {
 	public String getTime() {
 		return time;
 	}
-	public void setTime(String time1) {
-		this.time = time1;
+	public void setTime(String time) {
+		this.time = time;
 	}
 	public int getGood() {
 		return good;

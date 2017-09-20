@@ -22,13 +22,13 @@
  <mapper namespace="dao.ITest">
 
   <resultMap type="pojo.TestItems" id="itemsResult">
-		    <result column="plinename" jdbcType="VARCHAR" property="plinename"/>
+            <result column="ID" jdbcType="INTEGER" property="id"/>
+		    <result column="pline" jdbcType="VARCHAR" property="pline"/>
 		    <result column="mname" jdbcType="VARCHAR" property="mname"/>
 		    <result column="ordernumber" jdbcType="VARCHAR" property="ordernumber"/>
-		    <result column="mstandard" jdbcType="VARCHAR" property="mstandard"/>
 		    <result column="testm" jdbcType="VARCHAR" property="testm"/>
 		    <result column="pnumber" jdbcType="INTEGER" property="pnumber"/>
-		    <result column="time" jdbcType="DATE" property="pnumber"/>
+		    <result column="time" jdbcType="DATE" property="time"/>
 		    <result column="good" jdbcType="INTEGER" property="good"/>
 		    <result column="ng" jdbcType="INTEGER" property="ng"/>
 		    <result column="goodrate" jdbcType="DOUBLE" property="goodrate"/>
@@ -36,17 +36,103 @@
 		    <result column="spc" jdbcType="INTEGER" property="spc"/>
 		    <result column="thd" jdbcType="INTEGER" property="thd"/>
 		    <result column="oth" jdbcType="INTEGER" property="oth"/>
-		     </resultMap> 
-    
+            </resultMap> 
+		     <resultMap type="pojo.DayItems" id="dayResult">
+            <result column="ordernumber" jdbcType="VARCHAR" property="ordernumber"/>
+		    <result column="mstandard" jdbcType="VARCHAR" property="mstandard"/>
+		    <result column="good" jdbcType="INTEGER" property="good"/>
+		    <result column="ng" jdbcType="INTEGER" property="ng"/>
+		    <result column="spc" jdbcType="INTEGER" property="spc"/>
+		    <result column="thd" jdbcType="INTEGER" property="thd"/>
+		    <result column="oth" jdbcType="INTEGER" property="oth"/>
+		   </resultMap> 
+		 	<resultMap type="pojo.AllItems" id="AllitemsResult">
+            <result column="ID" jdbcType="INTEGER" property="id"/>
+		    <result column="pline" jdbcType="VARCHAR" property="pline"/>
+		    <result column="mname" jdbcType="VARCHAR" property="mname"/>
+		    <result column="ordernumber" jdbcType="VARCHAR" property="ordernumber"/>
+		    <result column="testm" jdbcType="VARCHAR" property="testm"/>
+		    <result column="pnumber" jdbcType="INTEGER" property="pnumber"/>
+		    <result column="time" jdbcType="DATE" property="time"/>
+		    <result column="good" jdbcType="INTEGER" property="good"/>
+		    <result column="ng" jdbcType="INTEGER" property="ng"/>
+		    <result column="goodrate" jdbcType="DOUBLE" property="goodrate"/>
+		    <result column="ngrate" jdbcType="DOUBLE" property="ngrate"/>
+		    <result column="spc" jdbcType="INTEGER" property="spc"/>
+		    <result column="thd" jdbcType="INTEGER" property="thd"/>
+		    <result column="oth" jdbcType="INTEGER" property="oth"/>
+			<result column="psum" jdbcType="INTEGER" property="psum"/>
+			<result column="psumgood" jdbcType="INTEGER" property="psumgood"/>
+			<result column="psumng" jdbcType="INTEGER" property="psumng"/>
+		    <result column="psumspc" jdbcType="INTEGER" property="psumspc"/>
+		    <result column="psumthd" jdbcType="INTEGER" property="psumthd"/>
+		    <result column="psumoth" jdbcType="INTEGER" property="psumoth"/>
+			<result column="dsum" jdbcType="INTEGER" property="dsum"/>
+		    <result column="dsumgood" jdbcType="INTEGER" property="dsumgood"/>
+		    <result column="dsumng" jdbcType="INTEGER" property="dsumng"/>
+		    <result column="dsumspc" jdbcType="INTEGER" property="dsumspc"/>
+			<result column="dsumthd" jdbcType="INTEGER" property="dsumthd"/>
+			<result column="dsumoth" jdbcType="INTEGER" property="dsumoth"/>
+         </resultMap> 
+    <!-- 添加数据 -->
     <insert id="insert"  parameterType="java.util.List">
-    insert into PL(pline,mname,ordernumber,mstandard,testm,pnumber,time,good,ng,goodrate,ngrate,spc,thd,oth) values
+    insert into pl_PL(pline,mname,ordernumber,testm,pnumber,time,good,ng,goodrate,ngrate,spc,thd,oth) values
     <foreach collection="list" item="item" index="index"  open="(" close=")" separator=",">
-          #{item.plinename},#{item.mname},#{item.ordernumber},#{item.mstandard},#{item.testm},#{item.pnumber},#{item.time},#{item.good},#{item.ng},#{item.goodrate}
+          #{item.pline},#{item.mname},#{item.ordernumber},#{item.testm},#{item.pnumber},#{item.time},#{item.good},#{item.ng},#{item.goodrate}
           ,#{item.ngrate},#{item.spc},#{item.thd},#{item.oth}
-    </foreach>
-    
+    </foreach>    
   </insert> 
- 
+  <!-- 查找pl_PL里面的所有数据 -->
+   <select id="selectlist" parameterType="pojo.TestItems" resultMap="itemsResult">
+      SELECT  distinct * from pl_PL where 1=1
+   <if test="time!=null and!&quot;&quot;.equals(time.trim())"> and time=#{time} </if>
+      <if test="pline!=null and!&quot;&quot;.equals(pline.trim())"> and pline=#{pline}</if>
+       <if test="pline!=null and!&quot;&quot;.equals(pline.trim())"> order by pline</if>
+  </select>
+  <!-- 更新数据 -->
+    <update id="updateitem">
+    <foreach collection="list" item="item" >
+         update pl_PL set pline= #{item.pline} ,testm=#{item.mname},pnumber=#{item.pnumber},time=#{item.time},good=#{item.good},
+         ng=#{item.ng},goodrate=#{item.goodrate},ngrate=#{item.ngrate},spc=#{item.spc},THD=#{item.thd},OTH=#{item.oth},mname=#{item.mname},
+         ordernumber=#{item.ordernumber} where id=#{item.id}
+    </foreach>   
+    </update>
+  <!-- 删除一个数据 -->
+  <delete id="deleteoneitem" parameterType="int" >
+     DELETE FROM pl_PL WHERE ID=#{_parameter}
+  </delete>
+		<!-- 删除多行数据 -->
+  <delete id="deleteitems"  parameterType="java.util.List">
+    DELETE FROM pl_PL WHERE ID in(
+    <foreach collection="list" item="item" separator=",">
+      #{item}
+    </foreach>
+    )
+  </delete>
   
-  
+    <select id="selectitem" parameterType="pojo.TestItems" resultMap="itemsResult">
+   SELECT * from pl_PL where ID=#{_parameter}
+  </select>
+
+    <select id="selectordernumber" parameterType="pojo.DayItems" resultMap="dayResult">
+    select ordernumber,sum(good) as good,sum(ng) as ng,sum(SPC) as spc,sum(THD) as thd,sum(OTH) as oth from pl_PL 
+    where time=#{_parameter} group by ordernumber,pline ;
+    </select>
+    <!-- 所有数据列表 -->
+    <select id="listallitem" parameterType="pojo.AllItems" resultMap="AllitemsResult">
+      SELECT DISTINCT time,pline,mname,ordernumber,testm,pnumber,good,ng,goodrate,ngrate,spc,thd,oth,psumgood+PSumNg as psum, 
+      psumgood,PSumNg,
+    CAST( psumgood AS float) /(psumgood+psumgood) as Pgoodrate ,ROUND( CAST( PSumNg AS float) /(psumgood+psumgood),2 )as Pngrate ,
+    PSuSpc as PsumSpc,PSumthd as psumthd,PSumOth,dsumgood+DSumNg as Dsum,DSumgood,DSumNg,DSuSpc as Dsumspc,DSumthd,DSumoth
+   FROM  [dbo].[pl_pl_VML] 
+       <if test="_parameter!=null and!&quot;&quot;.equals(_parameter.trim())"> where time=#{time} order by time</if>
+    </select>
+    <!-- 产线名称 -->
+    <select id="selectpline"  parameterType="java.util.List" resultType="String">
+        select distinct pline from TEST_info 
+    </select>
+    <!-- 测试机器 -->
+    <select id="selecttestm"  parameterType="java.util.List" resultType="String">
+        select distinct testm from TEST_info 
+    </select>
   </mapper>  

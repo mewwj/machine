@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+       Copyright 2009-2016 the original author or authors.
+
+       Licensed under the Apache License, Version 2.0 (the "License");
+       you may not use this file except in compliance with the License.
+       You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+       Unless required by applicable law or agreed to in writing, software
+       distributed under the License is distributed on an "AS IS" BASIS,
+       WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+       See the License for the specific language governing permissions and
+       limitations under the License.
+
+-->
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="dao.Imain">
+            <resultMap type="pojo.TestInfo" id="TestInfoResult">
+            <result column="ID" jdbcType="INTEGER" property="id"/>
+		    <result column="pline" jdbcType="VARCHAR" property="pline"/>
+		     <result column="testm" jdbcType="VARCHAR" property="testm"/>
+		    </resultMap>
+		     <resultMap type="pojo.CsrInfo" id="CsrInfoResult">
+            <result column="ID" jdbcType="INTEGER" property="id"/>
+		    <result column="KHZAH" jdbcType="VARCHAR" property="khzah"/>
+		     <result column="mname" jdbcType="VARCHAR" property="mname"/>
+		     <result column="mstandard" jdbcType="VARCHAR" property="mstandard"/>
+		    </resultMap>
+		    <!-- 查找所有 -->
+    <select id="selecttestinfo" parameterType="pojo.TestInfo" resultMap="TestInfoResult">
+         select * from Test_info
+    </select>
+     <select id="selectcsrinfo" parameterType="pojo.CsrInfo" resultMap="CsrInfoResult">
+         select * from CSR_info
+    </select>
+    <select id="selectonecsrinfo" parameterType="pojo.CsrInfo" resultMap="CsrInfoResult">
+         select * from CSR_info where id= #{_parameter}
+    </select>
+    <select id="selectonetestinfo" parameterType="pojo.TestInfo" resultMap="TestInfoResult">
+         select * from TEST_info where id= #{_parameter}
+    </select>
+    <!-- 更新数据 -->
+       <update id="updateTestInfo">
+    <foreach collection="list" item="item" >
+         update TEST_info set pline= #{item.pline} ,testm=#{item.testm} where id=#{item.id}
+    </foreach>   
+    </update>
+      <update id="updateCsrInfo">
+    <foreach collection="list" item="item" >
+         update CSR_info set KHZAH= #{item.khzah} ,mname=#{item.mname},matandard=#{item.mstandard}where id=#{item.id}
+    </foreach>   
+    </update>
+    <!-- 删除一个数据 -->
+     <delete id="deleteonetest" parameterType="int">
+         delete from TEST_info where id= #{_parameter}
+    </delete>
+    <delete id="deleteonecsr" parameterType="int">
+         delete from CSR_info where id= #{_parameter}
+    </delete>
+    <!-- 删除多行数据 -->
+      <delete id="deletecsrbatch"  parameterType="java.util.List">
+    DELETE FROM CSR_info WHERE ID in(
+    <foreach collection="list" item="item" separator=",">
+      #{item}
+    </foreach>
+    )
+  </delete>
+    <delete id="deletetestbatch"  parameterType="java.util.List">
+    DELETE FROM TEST_info WHERE ID in(
+    <foreach collection="list" item="item" separator=",">
+      #{item}
+    </foreach>
+    )
+  </delete>
+  
+  		<!-- 插入数据 -->
+  <insert id="inserttestinfo"  parameterType="java.util.List">
+    insert into TEST_info (pline,testm) values (
+    <foreach collection="list" item="item" separator=",">
+      #{item}
+    </foreach>
+    )
+  </insert>
+  <insert id="insertcsrinfo"  parameterType="java.util.List">
+    insert into CSR_info (KHZAH,mname,mstandard) values (
+    <foreach collection="list" item="item" separator=",">
+      #{item}
+    </foreach>
+    )
+  </insert>
+  <!-- 查找测试标准 -->
+  <select id="selectmstandard" parameterType="java.util.List" resultType="String">
+        select DISTINCT mstandard from  CSR_info
+    </select>
+    <select id="selectmname" parameterType="java.util.List" resultType="String">
+        select DISTINCT mname from  CSR_info
+    </select>
+ </mapper>
