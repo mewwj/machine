@@ -20,6 +20,7 @@ public class CSRTEST_ToAllServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		 ListService listservice=new ListService();
+		    
 		 request.setAttribute("infolist1",listservice.selecttestinfo());
 		 request.setAttribute("infolist2",listservice.selectcsrinfo());
 		request.getRequestDispatcher("/WEB-INF/jsp/CSRTESTall.jsp").forward(request, response);

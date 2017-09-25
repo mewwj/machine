@@ -35,4 +35,8 @@ public interface Imain {
 
 	List<String> selectmname();
 
+	List<TestInfo> selectTestInfoa(List<TestInfo> TestList);
+
+	List<CsrInfo> selectcsrinfoa(List<CsrInfo> CsrList);
+
 }

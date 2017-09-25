@@ -33,4 +33,13 @@ public class SelectService {
 		InfoDao infodao=new InfoDao();
 		return infodao.selectmname();
 	}
+	public List<TestInfo> selecttestinfoa(List<TestInfo> testList) {
+		InfoDao infodao=new InfoDao();
+		return infodao.selecttestinfoa();
+	}
+	public List<CsrInfo> selectcsrinfoa(List<CsrInfo> csrList) {
+		InfoDao infodao=new InfoDao();
+		return infodao.selectcsrinfoa();
+		
+	}
 }

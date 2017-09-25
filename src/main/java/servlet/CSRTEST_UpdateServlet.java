@@ -25,37 +25,40 @@ public class CSRTEST_UpdateServlet extends HttpServlet {
 				String csrkhzah=request.getParameter("csrkhzah");
 				String csrmname=request.getParameter("csrmname");
 				String mstandard=request.getParameter("mstandard");
-				if(csrid1!=null) {
-				int csrid =Integer.valueOf(csrid1);
-				List<CsrInfo> csrList=new ArrayList();
+				String testid1=request.getParameter("testid");
+				String testpline=request.getParameter("testpline");
+				String testtestm=request.getParameter("testtestm");
+				
+				if(csrid1 != null) {
+					System.out.println("到达servlet");
+				   int csrid =Integer.valueOf(csrid1);
+				   List<CsrInfo> csrList=new ArrayList();
 				   CsrInfo csrInfo=new CsrInfo();
 				   csrInfo.setId(csrid);
 				   csrInfo.setKhzah(csrkhzah);
 				   csrInfo.setMname(csrmname);
 				   csrInfo.setMstandard(mstandard);
 				   csrList.add(csrInfo);
+				   System.out.println("到达");
 				   UpdateService updateService=new UpdateService();
-					  if(csrid > 0 ) { updateService.updateCsrInfo(csrList);}
+						 updateService.updateCsrInfo(csrList);
 					  }
-			        
-				
-				String testid1=request.getParameter("testid");
-					String testpline=request.getParameter("testpline");
-					String testtestm=request.getParameter("testtestm");
-					if(testid1 != null ) {  
+				if(testid1 != null ) {  
 						int testid=Integer.valueOf(testid1);
-					List<TestInfo> testList=new ArrayList();
+					 List<TestInfo> testList=new ArrayList();
 					   TestInfo testInfo=new TestInfo();
 					   testInfo.setId(testid);
+					   System.out.println("到达");
 					   testInfo.setPline(testpline);
 					   testInfo.setTestm(testtestm);
 					   testList.add(testInfo); 
-					  UpdateService updateService=new UpdateService();
-				       if(testid > 0) {  updateService.updateTestInfo(testList);}}
+					   UpdateService updateService=new UpdateService();
+					   updateService.updateTestInfo(testList);
+				       }
 	
-				    request.getRequestDispatcher("/CSRTEST_ToAllServlet").forward(request, response);
+	
+				request.getRequestDispatcher("/CSRTEST_ToAllServlet").forward(request, response);
 	}
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}

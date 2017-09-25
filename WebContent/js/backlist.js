@@ -21,12 +21,6 @@
 	        return false;
 	    }
 	}
- function alert(){
-	    
-	        
-	        alert("删除");
-	    }
-	   
 function deleteBatch(basePath){
 		$('#mainForm').attr("action","DoDeleteItemsServlet");
 		$('#mainForm').submit();

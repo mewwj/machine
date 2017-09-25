@@ -39,9 +39,9 @@
       </transactionManager>
       <dataSource type="POOLED">
         <property name="driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
-        <property name="url" value="jdbc:sqlserver://localhost:1433;Database=productiontests"/>
-        <property name="username" value="sa"/>
-          <property name="password" value="123456"/>
+        <property name="url" value="jdbc:sqlserver://192.168.100.17:1433;Database=JHBarCode"/>
+        <property name="username" value="m_link"/>
+          <property name="password" value="zylux123456!@#"/>
       </dataSource>
     </environment>
   </environments>

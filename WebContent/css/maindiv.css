@@ -21,11 +21,11 @@
 }
 #allleft{ 
 	      float: right;
-	      width: 50%; 
+	      width: 30%; 
           display:inline;
 }
 #allright{
-		  width: 49%; 
+		  width: 66%; 
 	      float: left;
           border-right:1px solid #000;
 }

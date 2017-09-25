@@ -17,12 +17,17 @@ public class DoDeleteItemsServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		String[] ids=request.getParameterValues("id");
-		//将查询到的值传给页面
-		DeleteService deleteService=new DeleteService();
-		deleteService.deleteitems(ids);
+		try {
+					String[] ids=request.getParameterValues("id");
+						//将查询到的值传给页面
+				DeleteService deleteService=new DeleteService();
+				deleteService.deleteitems(ids);
+				request.getRequestDispatcher("/DoListServlet").forward(request, response);
+		} catch (Exception e) {
+			  request.getRequestDispatcher("/DoListServlet").forward(request, response);
+		}
 		//刷新展示页面。
-	     request.getRequestDispatcher("/DoListServlet").forward(request, response);
+	    
 	
 	}
 

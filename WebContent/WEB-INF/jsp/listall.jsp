@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
       <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> 
+        <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
     <%@ page import="pojo.TestItems"%>
 <%@ page import="java.util.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -83,8 +84,8 @@ input{ border:none; }
 			<td>${item.time}</td>
 			<td>${item.good}</td>
 			<td>${item.ng}</td>
-			<td>${item.goodrate}</td>
-			<td>${item.ngrate}</td>
+			<td><fmt:formatNumber value="${item.goodrate}" type="percent"/></td>
+			<td><fmt:formatNumber value="${item.ngrate}" type="percent"/></td>
 			<td>${item.spc}</td>
 			<td>${item.thd}</td>
 			<td>${item.oth}</td>

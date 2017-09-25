@@ -18,7 +18,7 @@
 -->
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
- <mapper namespace="dao.Imain">
+ 		<mapper namespace="dao.Imain">
             <resultMap type="pojo.TestInfo" id="TestInfoResult">
             <result column="ID" jdbcType="INTEGER" property="id"/>
 		    <result column="pline" jdbcType="VARCHAR" property="pline"/>
@@ -30,6 +30,7 @@
 		     <result column="mname" jdbcType="VARCHAR" property="mname"/>
 		     <result column="mstandard" jdbcType="VARCHAR" property="mstandard"/>
 		    </resultMap>
+		    
 		    <!-- 查找所有 -->
     <select id="selecttestinfo" parameterType="pojo.TestInfo" resultMap="TestInfoResult">
          select * from Test_info
@@ -44,14 +45,14 @@
          select * from TEST_info where id= #{_parameter}
     </select>
     <!-- 更新数据 -->
-       <update id="updateTestInfo">
+     <update id="updateTestInfo" parameterType="pojo.TestInfo" >
     <foreach collection="list" item="item" >
          update TEST_info set pline= #{item.pline} ,testm=#{item.testm} where id=#{item.id}
     </foreach>   
     </update>
-      <update id="updateCsrInfo">
+     <update id="updateCsrInfo" parameterType="pojo.CsrInfo">
     <foreach collection="list" item="item" >
-         update CSR_info set KHZAH= #{item.khzah} ,mname=#{item.mname},matandard=#{item.mstandard}where id=#{item.id}
+         update CSR_info set KHZAH= #{item.khzah} ,mname=#{item.mname} , mstandard=#{item.mstandard} where id=#{item.id}
     </foreach>   
     </update>
     <!-- 删除一个数据 -->
@@ -62,7 +63,7 @@
          delete from CSR_info where id= #{_parameter}
     </delete>
     <!-- 删除多行数据 -->
-      <delete id="deletecsrbatch"  parameterType="java.util.List">
+     <delete id="deletecsrbatch"  parameterType="java.util.List">
     DELETE FROM CSR_info WHERE ID in(
     <foreach collection="list" item="item" separator=",">
       #{item}
@@ -98,5 +99,16 @@
     </select>
     <select id="selectmname" parameterType="java.util.List" resultType="String">
         select DISTINCT mname from  CSR_info
+    </select>
+    <!-- 查找数据库是否存在该信息 -->
+     <select id="selectcsrinfoa" parameterType="pojo.CsrInfo" resultMap="CsrInfoResult">
+        <foreach collection="list" item="item" >
+         select * from CSR_info where khzah=#{item.khzah} and mstandard=#{item.mstandard} and mname=#{item.mname}
+    </foreach>   
+    </select>
+   	<select id="selectTestInfoa" parameterType="pojo.TestInfo" resultMap="TestInfoResult">
+       <foreach collection="list" item="item" >
+        select * from TEST_info where pline=#{item.pline} and testm=#{item.testm}
+    </foreach>  
     </select>
  </mapper>

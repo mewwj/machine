@@ -97,6 +97,7 @@ public class InfoDao {
 			sqlSession=dbAccess.getSqlSession();
 			Imain itest=sqlSession.getMapper(Imain.class);
 			itest.updateCsrInfo(csrList);
+			System.out.println("update dao");
 			//sqlSession.delete("chat.insert",item);
 			sqlSession.commit();
 		} catch (Exception e) {
@@ -274,5 +275,45 @@ public class InfoDao {
 		}
 		return listmname;
 	
+	}
+
+	public List<TestInfo> selecttestinfoa() {
+		DBAccess dbAccess=new DBAccess();
+        List<TestInfo> listTestInfo = new ArrayList<TestInfo>(); // 信息集合
+       	SqlSession sqlSession=null;
+    	try {
+			sqlSession=dbAccess.getSqlSession();
+			Imain imain=sqlSession.getMapper(Imain.class);
+			listTestInfo=imain.selectTestInfoa(listTestInfo);
+			//sqlSession.delete("chat.insert",item);
+			sqlSession.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(sqlSession!=null){
+				sqlSession.close();
+			}
+		}
+		return listTestInfo;
+	}
+
+	public List<CsrInfo> selectcsrinfoa() {
+		DBAccess dbAccess=new DBAccess();
+        List<CsrInfo> listCsrInfo = new ArrayList<CsrInfo>(); // 信息集合
+       	SqlSession sqlSession=null;
+    	try {
+			sqlSession=dbAccess.getSqlSession();
+			Imain imain=sqlSession.getMapper(Imain.class);
+			listCsrInfo=imain.selectcsrinfoa(listCsrInfo);
+			//sqlSession.delete("chat.insert",item);
+			sqlSession.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			if(sqlSession!=null){
+				sqlSession.close();
+			}
+		}
+		return listCsrInfo;
 	}
 }

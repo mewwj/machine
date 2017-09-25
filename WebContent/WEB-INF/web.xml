@@ -226,4 +226,14 @@
     <servlet-name>CSRTEST_DoDeleteBatchServlet</servlet-name>
     <url-pattern>/CSRTEST_DoDeleteBatchServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Test1</display-name>
+    <servlet-name>Test1</servlet-name>
+    <servlet-class>servlet.Test1</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Test1</servlet-name>
+    <url-pattern>/Test1</url-pattern>
+  </servlet-mapping>
 </web-app>
